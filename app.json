@@ -1,25 +1,43 @@
 {
   "expo": {
-    "name": "sentinel-mobile",
+    "name": "Sentinel Mobile",
     "slug": "sentinel-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#090D16",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Sentinel Mobile uses the camera to capture intruder photos upon unauthorized unlock attempts and scan 2FA QR codes.",
+        "NSLocationWhenInUseUsageDescription": "Sentinel Mobile uses your GPS location to share your real-time coordinates with emergency contacts during SOS distress.",
+        "NSFaceIDUsageDescription": "Sentinel Mobile uses Face ID to securely unlock your encrypted vault.",
+        "NSMotionUsageDescription": "Sentinel Mobile monitors motion to trigger anti-theft tripwire alarms and shake-to-SOS."
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#090D16",
+        "foregroundImage": "./assets/android-icon-foreground.png"
       },
-      "predictiveBackGestureEnabled": false
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT",
+        "VIBRATE",
+        "SEND_SMS",
+        "ACCESS_NETWORK_STATE",
+        "ACCESS_WIFI_STATE"
+      ],
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.sentinelmobile"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     }
   }
 }
