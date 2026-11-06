@@ -100,7 +100,7 @@ export const AntivirusScanModal: React.FC<Props> = ({ visible, onDismiss }) => {
           </TouchableOpacity>
           <View>
             <Text style={styles.title}>SECURITY SCAN</Text>
-            <Text style={styles.sub}>MIUI Antivirus & Payment Environment Shield</Text>
+            <Text style={styles.sub}>Antivirus & Payment Environment Shield</Text>
           </View>
         </View>
 

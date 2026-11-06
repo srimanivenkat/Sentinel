@@ -39,6 +39,13 @@ export const DashboardScreen: React.FC<Props> = ({ onNavigateTab, onLockApp }) =
   const [deviceInfo, setDeviceInfo] = useState<DeviceHardwareInfo>(OptimizerService.getDeviceInfo());
   const [batteryStats, setBatteryStats] = useState(OptimizerService.getBatteryDiagnostics());
   const [memStats, setMemStats] = useState(OptimizerService.getMemoryStats());
+  const [junkBytes, setJunkBytes] = useState(() =>
+    OptimizerService.getJunkItems().reduce((acc, j) => acc + j.sizeBytes, 0)
+  );
+  const [dataStats, setDataStats] = useState(() => OptimizerService.getDataUsageStats());
+  const [lockedCount, setLockedCount] = useState(() =>
+    OptimizerService.getAppLockItems().filter((a) => a.isLocked).length
+  );
   const [posture, setPosture] = useState<SecurityPosture>({
     overallScore: 82,
     biometricsEnabled: true,
@@ -141,6 +148,10 @@ export const DashboardScreen: React.FC<Props> = ({ onNavigateTab, onLockApp }) =
       setDeviceInfo(OptimizerService.getDeviceInfo());
       setBatteryStats(OptimizerService.getBatteryDiagnostics());
       setMemStats(OptimizerService.getMemoryStats());
+      const junks = OptimizerService.getJunkItems();
+      setJunkBytes(junks.reduce((acc, j) => acc + j.sizeBytes, 0));
+      setDataStats(OptimizerService.getDataUsageStats());
+      setLockedCount(OptimizerService.getAppLockItems().filter((a) => a.isLocked).length);
 
       setPosture(computed);
     } catch (err) {
@@ -205,7 +216,9 @@ export const DashboardScreen: React.FC<Props> = ({ onNavigateTab, onLockApp }) =
             </Text>
           </View>
           <View style={styles.osBadge}>
-            <Text style={styles.osBadgeText}>HyperOS • Android {deviceInfo.androidVersion}</Text>
+            <Text style={styles.osBadgeText}>
+              {deviceInfo.osName ? `${deviceInfo.osName} • ` : ''}Android {deviceInfo.androidVersion}
+            </Text>
           </View>
         </View>
 
@@ -275,9 +288,9 @@ export const DashboardScreen: React.FC<Props> = ({ onNavigateTab, onLockApp }) =
         {/* Panic Button */}
         <PanicButton />
 
-        {/* MIUI-Style 6-Tile Security Grid */}
+        {/* Universal 6-Tile Security Grid */}
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>MIUI-STYLE SECURITY UTILITIES</Text>
+          <Text style={styles.sectionTitle}>SYSTEM SECURITY UTILITIES</Text>
         </View>
 
         <View style={styles.tilesGrid}>
@@ -291,7 +304,7 @@ export const DashboardScreen: React.FC<Props> = ({ onNavigateTab, onLockApp }) =
               <Ionicons name="trash-bin-outline" size={20} color={Theme.colors.primary} />
             </View>
             <Text style={styles.tileTitle}>Cleaner</Text>
-            <Text style={styles.tileMeta}>1.74 GB Cache</Text>
+            <Text style={styles.tileMeta}>{OptimizerService.formatBytes(junkBytes)} Cache</Text>
           </TouchableOpacity>
 
           {/* Tile 2: Security Scan */}
@@ -345,7 +358,7 @@ export const DashboardScreen: React.FC<Props> = ({ onNavigateTab, onLockApp }) =
               <Ionicons name="cellular-outline" size={20} color={Theme.colors.primary} />
             </View>
             <Text style={styles.tileTitle}>Data Usage</Text>
-            <Text style={styles.tileMeta}>14.6 GB / 30 GB</Text>
+            <Text style={styles.tileMeta}>{dataStats.usedCellularGb} GB / {dataStats.monthlyLimitGb} GB</Text>
           </TouchableOpacity>
 
           {/* Tile 6: App Lock */}
@@ -358,7 +371,7 @@ export const DashboardScreen: React.FC<Props> = ({ onNavigateTab, onLockApp }) =
               <Ionicons name="lock-closed-outline" size={20} color={Theme.colors.danger} />
             </View>
             <Text style={styles.tileTitle}>App Lock</Text>
-            <Text style={styles.tileMeta}>5 Apps Locked</Text>
+            <Text style={styles.tileMeta}>{lockedCount} Apps Locked</Text>
           </TouchableOpacity>
         </View>
 
@@ -418,7 +431,7 @@ export const DashboardScreen: React.FC<Props> = ({ onNavigateTab, onLockApp }) =
         />
       </ScrollView>
 
-      {/* MIUI Modals */}
+      {/* Security Utility Modals */}
       <CleanerModal visible={cleanerVisible} onDismiss={() => setCleanerVisible(false)} />
       <SpeedBoostModal visible={speedBoostVisible} onDismiss={() => setSpeedBoostVisible(false)} />
       <AntivirusScanModal visible={antivirusVisible} onDismiss={() => setAntivirusVisible(false)} />

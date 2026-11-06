@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   View,
@@ -24,6 +24,12 @@ export const CleanerModal: React.FC<Props> = ({ visible, onDismiss }) => {
   const [cleaning, setCleaning] = useState(false);
   const [cleanedTotal, setCleanedTotal] = useState<string | null>(null);
   const storageStats = OptimizerService.getStorageStats();
+
+  useEffect(() => {
+    if (visible) {
+      setJunkList(OptimizerService.getJunkItems());
+    }
+  }, [visible]);
 
   const toggleSelect = (id: string) => {
     setJunkList((prev) =>
@@ -62,7 +68,7 @@ export const CleanerModal: React.FC<Props> = ({ visible, onDismiss }) => {
           </TouchableOpacity>
           <View>
             <Text style={styles.title}>JUNK CLEANER</Text>
-            <Text style={styles.sub}>MIUI-Style Storage Cache & Deep Clean</Text>
+            <Text style={styles.sub}>Storage Cache & Deep Clean</Text>
           </View>
         </View>
 

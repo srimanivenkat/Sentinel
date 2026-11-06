@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   View,
@@ -21,6 +21,12 @@ interface Props {
 
 export const DataUsageModal: React.FC<Props> = ({ visible, onDismiss }) => {
   const [stats, setStats] = useState<DataUsageStats>(OptimizerService.getDataUsageStats());
+
+  useEffect(() => {
+    if (visible) {
+      setStats(OptimizerService.getDataUsageStats());
+    }
+  }, [visible]);
 
   const toggleBlockBackground = (id: string) => {
     setStats((prev) => ({
@@ -45,7 +51,7 @@ export const DataUsageModal: React.FC<Props> = ({ visible, onDismiss }) => {
           </TouchableOpacity>
           <View>
             <Text style={styles.title}>DATA USAGE & TRAFFIC</Text>
-            <Text style={styles.sub}>MIUI-Style Bandwidth Monitoring & App Firewall</Text>
+            <Text style={styles.sub}>Bandwidth Monitoring & App Firewall</Text>
           </View>
         </View>
 

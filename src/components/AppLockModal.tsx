@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   View,
@@ -23,6 +23,12 @@ interface Props {
 export const AppLockModal: React.FC<Props> = ({ visible, onDismiss }) => {
   const [apps, setApps] = useState<AppLockItem[]>(OptimizerService.getAppLockItems());
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    if (visible) {
+      setApps(OptimizerService.getAppLockItems());
+    }
+  }, [visible]);
 
   const toggleLock = (id: string) => {
     setApps((prev) =>
@@ -50,7 +56,7 @@ export const AppLockModal: React.FC<Props> = ({ visible, onDismiss }) => {
           </TouchableOpacity>
           <View>
             <Text style={styles.title}>APP LOCK & PRIVACY</Text>
-            <Text style={styles.sub}>MIUI-Style Biometric / PIN App Protection</Text>
+            <Text style={styles.sub}>Biometric & PIN App Protection</Text>
           </View>
         </View>
 

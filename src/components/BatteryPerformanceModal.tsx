@@ -22,6 +22,12 @@ export const BatteryPerformanceModal: React.FC<Props> = ({ visible, onDismiss })
   const [profile, setProfile] = useState<BatteryDiagnostics['activeProfile']>('BALANCED');
   const diagnostics = OptimizerService.getBatteryDiagnostics(profile);
 
+  const baseHours = (diagnostics.levelPercent / 100) * 24.0;
+  const performanceHours = (baseHours * 0.75).toFixed(1);
+  const balancedHours = (baseHours * 1.0).toFixed(1);
+  const saverHours = (baseHours * 1.35).toFixed(1);
+  const ultraSaverHours = (baseHours * 2.4).toFixed(1);
+
   if (!visible) return null;
 
   return (
@@ -34,7 +40,7 @@ export const BatteryPerformanceModal: React.FC<Props> = ({ visible, onDismiss })
           </TouchableOpacity>
           <View>
             <Text style={styles.title}>BATTERY & PERFORMANCE</Text>
-            <Text style={styles.sub}>MIUI-Style Thermal Diagnostics & Power Profiles</Text>
+            <Text style={styles.sub}>Thermal Diagnostics & Power Profiles</Text>
           </View>
         </View>
 
@@ -85,7 +91,7 @@ export const BatteryPerformanceModal: React.FC<Props> = ({ visible, onDismiss })
                   color={profile === 'PERFORMANCE' ? Theme.colors.danger : Theme.colors.textMuted}
                 />
                 <Text style={styles.profileName}>Performance</Text>
-                <Text style={styles.profileHours}>13.9 hrs</Text>
+                <Text style={styles.profileHours}>{performanceHours} hrs</Text>
               </TouchableOpacity>
 
               {/* Balanced */}
@@ -99,7 +105,7 @@ export const BatteryPerformanceModal: React.FC<Props> = ({ visible, onDismiss })
                   color={profile === 'BALANCED' ? Theme.colors.primary : Theme.colors.textMuted}
                 />
                 <Text style={styles.profileName}>Balanced</Text>
-                <Text style={styles.profileHours}>18.5 hrs</Text>
+                <Text style={styles.profileHours}>{balancedHours} hrs</Text>
               </TouchableOpacity>
 
               {/* Battery Saver */}
@@ -113,7 +119,7 @@ export const BatteryPerformanceModal: React.FC<Props> = ({ visible, onDismiss })
                   color={profile === 'SAVER' ? Theme.colors.success : Theme.colors.textMuted}
                 />
                 <Text style={styles.profileName}>Saver</Text>
-                <Text style={styles.profileHours}>25.0 hrs</Text>
+                <Text style={styles.profileHours}>{saverHours} hrs</Text>
               </TouchableOpacity>
 
               {/* Ultra Saver */}
@@ -127,7 +133,7 @@ export const BatteryPerformanceModal: React.FC<Props> = ({ visible, onDismiss })
                   color={profile === 'ULTRA_SAVER' ? Theme.colors.warning : Theme.colors.textMuted}
                 />
                 <Text style={styles.profileName}>Ultra Saver</Text>
-                <Text style={styles.profileHours}>44.4 hrs</Text>
+                <Text style={styles.profileHours}>{ultraSaverHours} hrs</Text>
               </TouchableOpacity>
             </View>
           </View>

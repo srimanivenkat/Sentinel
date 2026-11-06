@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   View,
@@ -24,6 +24,12 @@ export const SpeedBoostModal: React.FC<Props> = ({ visible, onDismiss }) => {
   const [boosting, setBoosting] = useState(false);
   const [boostedMemoryMb, setBoostedMemoryMb] = useState<number | null>(null);
   const memStats = OptimizerService.getMemoryStats();
+
+  useEffect(() => {
+    if (visible) {
+      setProcesses(OptimizerService.getRunningProcesses());
+    }
+  }, [visible]);
 
   const toggleSelect = (id: string) => {
     setProcesses((prev) =>
@@ -62,7 +68,7 @@ export const SpeedBoostModal: React.FC<Props> = ({ visible, onDismiss }) => {
           </TouchableOpacity>
           <View>
             <Text style={styles.title}>SPEED BOOST</Text>
-            <Text style={styles.sub}>MIUI-Style Background RAM & Memory Optimizer</Text>
+            <Text style={styles.sub}>Background RAM & Memory Optimizer</Text>
           </View>
         </View>
 

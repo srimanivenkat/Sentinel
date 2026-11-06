@@ -29,4 +29,27 @@ describe('OptimizerService', () => {
     const totalMem = processes.reduce((acc, p) => acc + p.memoryMb, 0);
     expect(totalMem).toBeGreaterThan(500); // > 500 MB
   });
+
+  test('should return universal device info with osName', () => {
+    const info = OptimizerService.getDeviceInfo();
+    expect(info.manufacturer).toBeDefined();
+    expect(info.model).toBeDefined();
+    expect(info.androidVersion).toBeDefined();
+    expect(info.osName).toBeDefined();
+  });
+
+  test('should return universal app lock items with valid categories', () => {
+    const items = OptimizerService.getAppLockItems();
+    expect(items.length).toBeGreaterThan(0);
+    expect(items.some((i) => i.isLocked)).toBe(true);
+    expect(items[0].category).toBeDefined();
+  });
+
+  test('should return data usage stats with cellular and wifi allocations', () => {
+    const stats = OptimizerService.getDataUsageStats();
+    expect(stats.monthlyLimitGb).toBeGreaterThan(0);
+    expect(stats.usedCellularGb).toBeGreaterThan(0);
+    expect(stats.usedWifiGb).toBeGreaterThan(0);
+    expect(stats.appTraffic.length).toBeGreaterThan(0);
+  });
 });
