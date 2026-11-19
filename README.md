@@ -4,6 +4,31 @@
 
 Sentinel Mobile is an offline-first, privacy-respecting Android security application that provides multi-vector threat detection, hardware-backed perimeter surveillance, encrypted credential storage, and emergency response tools across all Android OEM ecosystems (Samsung One UI, Google Pixel UI, OnePlus OxygenOS, Xiaomi HyperOS, Nothing OS, Motorola Hello UI, Vivo Funtouch OS, and Oppo ColorOS).
 
+
+---
+
+## Application Showcase
+
+| Dashboard | Junk Cleaner | Security Scan |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/01-dashboard.png" width="240" alt="Dashboard"/> | <img src="docs/screenshots/02-junk-cleaner.png" width="240" alt="Junk Cleaner"/> | <img src="docs/screenshots/03-antivirus-scan.png" width="240" alt="Security Scan"/> |
+| **Real-time Threat Posture**<br/>Live OEM telemetry & memory gauge | **StatFs Kernel Reclaim**<br/>System cache, APKs & media scrub | **Heuristic Zero-Day Scan**<br/>Installed package anomaly detection |
+
+| Battery & Thermals | Speed Boost | Data & Firewall |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/04-battery-thermals.png" width="240" alt="Battery & Thermals"/> | <img src="docs/screenshots/05-speed-boost.png" width="240" alt="Speed Boost"/> | <img src="docs/screenshots/06-data-firewall.png" width="240" alt="Data & Firewall"/> |
+| **Thermal Diagnostics**<br/>Live mV/temp & power profiles | **RAM Optimization**<br/>Background cycle reclaim | **Network Quota & Rules**<br/>Per-app cellular & Wi-Fi control |
+
+| App Lock | Emergency SOS Hub | Perimeter Sentry |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/07-app-lock.png" width="240" alt="App Lock"/> | <img src="docs/screenshots/08-emergency-sos.png" width="240" alt="Emergency SOS"/> | <img src="docs/screenshots/09-perimeter-sentry.png" width="240" alt="Perimeter Sentry"/> |
+| **Biometric & PIN Guard**<br/>Hardware-backed app protection | **Acoustic & Strobe SOS**<br/>1400Hz siren, Morse & GPS beacon | **Motion Tripwire**<br/>G-force sensor intrusion trap |
+
+| Authenticator Vault | Network Auditor | Widgets & HUD |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/10-authenticator-vault.png" width="240" alt="Authenticator Vault"/> | <img src="docs/screenshots/11-network-auditor.png" width="240" alt="Network Auditor"/> | <img src="docs/screenshots/12-widgets-hub.png" width="240" alt="Widgets Hub"/> |
+| **RFC 6238 TOTP 2FA**<br/>AES-256-GCM zero-knowledge store | **Privacy Diagnostics**<br/>DNS leak canary & interface auditor | **Quick-Action HUD**<br/>Android 4x2 & 2x2 home widgets |
+
 ---
 
 ## Key Modules & Capabilities
